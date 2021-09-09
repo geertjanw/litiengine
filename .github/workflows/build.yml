@@ -16,7 +16,9 @@ on:
 jobs:
   fullbuild:
     runs-on: ubuntu-latest
-
+    strategy:
+       matrix:
+         java: [16, 16.0.1] 
     name: Java 16 build
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +38,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '16'
+          java-version: ${{ matrix.java }}
 
       - name: Install D-BUS AT-SPI core
         run: sudo apt-get -y install at-spi2-core
